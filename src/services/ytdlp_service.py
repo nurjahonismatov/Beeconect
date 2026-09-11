@@ -1,5 +1,8 @@
 import os
-import imageio_ffmpeg  # Windows-da FFmpeg muammosini hal qiluvchi kutubxona
+# To'g'ri ko'rinishi:
+import imageio_ffmpeg
+# Windows-da ffmpeg muammosini hal qiluvchi kutubxona
+
 from yt_dlp import YoutubeDL
 from src.config import DOWNLOAD_DIR, COOKIES_DIR
 
