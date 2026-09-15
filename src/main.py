@@ -1,5 +1,8 @@
 import os
 from aiohttp import web
+import asyncio
+from aiohttp import web
+
 
 # Render talab qiladigan soxta veb-sahifa funksiyasi
 async def handle(request):
