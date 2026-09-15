@@ -2,9 +2,11 @@ import os
 import asyncio
 from aiohttp import web
 
+
 # 1. Loyihangiz ichidagi haqiqiy bot va dp (dispatcher) o'zgaruvchilarini import qilamiz.
 # (Agar sizda ular boshqa faylda bo'lsa, o'sha fayl nomini yozing, masalan: from src.bot_config import bot, dp)
-from src.main import bot, dp  
+from main import bot, dp  # <-- 'src.' qismini olib tashladik
+
 
 # Render talab qiladigan soxta veb-sahifa funksiyasi
 async def handle(request):
