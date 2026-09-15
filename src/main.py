@@ -1,19 +1,20 @@
 import os
-from aiohttp import web
 import asyncio
 from aiohttp import web
 
+# 1. Loyihangiz ichidagi haqiqiy bot va dp (dispatcher) o'zgaruvchilarini import qilamiz.
+# (Agar sizda ular boshqa faylda bo'lsa, o'sha fayl nomini yozing, masalan: from src.bot_config import bot, dp)
+from src.main import bot, dp  
 
 # Render talab qiladigan soxta veb-sahifa funksiyasi
 async def handle(request):
     return web.Response(text="Bot is running successfully!")
 
 async def start_bot():
-    # 1. Soxta veb-serverni sozlash (Render tinchlanishi uchun)
+    # Soxta veb-serverni sozlash (Render xursand bo'lishi uchun)
     app = web.Application()
     app.router.add_get('/', handle)
     
-    # Render avtomat beradigan portni oladi (yoki defolt 10000)
     port = int(os.environ.get("PORT", 10000))
     runner = web.AppRunner(app)
     await runner.setup()
@@ -21,8 +22,7 @@ async def start_bot():
     await site.start()
     print(f"Fake server started on port {port}")
 
-    # 2. Telegram botni odatdagidek Polling rejimida ishga tushirish
-    # O'zingizning dp va bot o'zgaruvchilaringiz nomini tekshirib oling
+    # Telegram botni Polling rejimida ishga tushirish
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
