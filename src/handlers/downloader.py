@@ -15,14 +15,14 @@ router = Router()
 )
 async def handle_video_download(message: Message):
     url = message.text.strip()
-    status = await message.answer("🔄 **Video yuklab olinmoqda...**\n_Iltimos, kuting..._")
+    status = await message.answer(" Iltimos, kuting ⏳ \nVideo yuklab olinmoqda...")
 
     try:
         # Videoni fonda yuklab olish
         loop = asyncio.get_event_loop()
         video_path = await loop.run_in_executor(None, download_video_sync, url)
 
-        await status.edit_text("🚀 **Video Telegramga yuklanmoqda...**")
+        await status.edit_text("🚀 yana ozgina kuting...")
         
         # Musiqa tugmasi
         keyboard = InlineKeyboardMarkup(inline_keyboard=[
@@ -35,7 +35,7 @@ async def handle_video_download(message: Message):
         video_file = FSInputFile(video_path)
         await message.answer_video(
             video=video_file, 
-            caption="✨ **@Beeconect_bot orqali yuklab olindi!**",
+            caption="✨  @Beeconect_bot orqali yuklab olindi! ",
             reply_markup=keyboard,
             reply_to_message_id=message.message_id  # <-- Mana shu qator zanjirni bog'laydi
         )
@@ -46,7 +46,7 @@ async def handle_video_download(message: Message):
             os.remove(video_path)
 
     except Exception as e:
-        await status.edit_text("❌ **Xatolik yuz berdi!**\n\nHavola noto'g'ri yoki fayl hajmi juda katta.")
+        await status.edit_text("❌ Xatolik yuz berdi \n\nHavola noto'g'ri yoki fayl hajmi juda katta.")
         print(f"Yuklashda xato: {e}")
 
 
@@ -63,19 +63,19 @@ async def process_audio_download(call: CallbackQuery):
     url = original_message.text.strip()
     await call.answer("🎵 Musiqa tayyorlanmoqda...")
     
-    status = await call.message.answer("📥 **Videodan musiqa ajratib olinmoqda...**")
+    status = await call.message.answer("📥 Videodan musiqa ajratib olinmoqda...")
     
     try:
         loop = asyncio.get_event_loop()
         audio_path = await loop.run_in_executor(None, download_audio_sync, url)
 
-        await status.edit_text("🚀 **Musiqa Telegramga yuborilmoqda...**")
+        await status.edit_text("🚀 Musiqa  yuborilmoqda...")
         
         # Musiqani ham asl linkka reply qilib yuboramiz
         audio_file = FSInputFile(audio_path)
         await call.message.answer_audio(
             audio=audio_file, 
-            caption="🎵 **Videoning musiqasi ajratib berildi!**\n✨ @SizningBotiz",
+            caption="🎵 Videoning musiqasi ajratib berildi!\n✨ @Beeconect_bot",
             reply_to_message_id=original_message.message_id
         )
         await status.delete()
@@ -85,5 +85,5 @@ async def process_audio_download(call: CallbackQuery):
             os.remove(audio_path)
 
     except Exception as e:
-        await status.edit_text("❌ **Musiqani yuklab olishda xatolik yuz berdi.**")
+        await status.edit_text("❌ Musiqani yuklab olishda xatolik yuz berdi")
         print(f"Audio yuklashda xato: {e}")
